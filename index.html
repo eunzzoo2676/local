@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도시 정주 라이프 플래너 - 실패 없는 지역 정착 로드맵</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: #2C3E50;
+            background: #FFFFFF;
+        }
+        
+        /* 네비게이션 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+        
+        nav a {
+            color: #0077B6;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #48A9A6;
+        }
+        
+        /* 공통 섹션 스타일 */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        
+        h1, h2 {
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #0077B6;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: #0077B6;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        /* 히어로 섹션 */
+        .hero {
+            padding-top: 8rem;
+            text-align: center;
+            background: linear-gradient(135deg, #F8FCFF 0%, #FFFFFF 100%);
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.4rem;
+            color: #48A9A6;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .hero .description {
+            font-size: 1.1rem;
+            color: #5A6C7D;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+        
+        .cta-primary {
+            display: inline-block;
+            background: #48A9A6;
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(72, 169, 166, 0.3);
+        }
+        
+        .cta-primary:hover {
+            background: #3A8A87;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 169, 166, 0.4);
+        }
+        
+        /* 문제 정의 섹션 */
+        .problem {
+            background: #FAFBFC;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .problem-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .problem-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-card h3 {
+            color: #0077B6;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-card p {
+            color: #5A6C7D;
+            line-height: 1.8;
+        }
+        
+        /* 솔루션 섹션 */
+        .solution {
+            text-align: center;
+        }
+        
+        .solution-intro {
+            font-size: 1.2rem;
+            color: #5A6C7D;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            line-height: 1.9;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            text-align: left;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            border-left: 4px solid #0077B6;
+        }
+        
+        .value-card h3 {
+            color: #0077B6;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .value-card p {
+            color: #5A6C7D;
+            line-height: 1.8;
+        }
+        
+        /* 혜택 섹션 */
+        .benefits {
+            background: #FAFBFC;
+        }
+        
+        .benefit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .benefit-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            color: #48A9A6;
+        }
+        
+        .benefit-content h3 {
+            color: #0077B6;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-steps {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        .benefit-steps li {
+            color: #5A6C7D;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+        
+        /* 신뢰 섹션 */
+        .trust {
+            background: linear-gradient(135deg, #0077B6 0%, #48A9A6 100%);
+            color: white;
+        }
+        
+        .trust h2 {
+            color: white;
+        }
+        
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .trust-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .trust-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .trust-card p {
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+        
+        /* 가격 섹션 */
+        .pricing {
+            text-align: center;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%);
+            max-width: 700px;
+            margin: 3rem auto;
+            padding: 3.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 119, 182, 0.1);
+            border: 2px solid #0077B6;
+        }
+        
+        .pricing-badge {
+            background: #48A9A6;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-card h3 {
+            color: #0077B6;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-container {
+            margin: 2rem 0;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+        }
+        
+        .discount-price {
+            color: #0077B6;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .pricing-features {
+            text-align: left;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .pricing-features li {
+            color: #5A6C7D;
+            margin-bottom: 0.8rem;
+            line-height: 1.7;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .pricing-features li:before {
+            content: "✓";
+            color: #48A9A6;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* CTA 섹션 */
+        .final-cta {
+            background: #FAFBFC;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .final-cta p {
+            font-size: 1.2rem;
+            color: #5A6C7D;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+        
+        .urgency {
+            background: #FFF4E6;
+            border-left: 4px solid #48A9A6;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+        
+        .urgency strong {
+            color: #0077B6;
+        }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            section {
+                padding: 3rem 1.5rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .benefit-item {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <nav>
+        <ul>
+            <li><a href="#problem">문제</a></li>
+            <li><a href="#solution">솔루션</a></li>
+            <li><a href="#benefits">혜택</a></li>
+            <li><a href="#trust">신뢰</a></li>
+            <li><a href="#pricing">가격</a></li>
+            <li><a href="#apply">신청</a></li>
+        </ul>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <h1>🏡 '어디서부터 시작할지 막막한' 지역 정주,<br>실패 없는 로드맵으로 시작하세요</h1>
+        <p class="subtitle">지역 정착, 이제 막막함 대신 명확한 '나만의 계획서'를 가집니다</p>
+        <p class="description">복잡하고 불확실한 지역 이주, 도시 정주 라이프 플래너가 1:1 맞춤형 컨설팅으로 당신의 성공적인 정착을 설계합니다.</p>
+        <a href="#apply" class="cta-primary">베타 테스터 신청하기 →</a>
+    </section>
+
+    <!-- 문제 정의 -->
+    <section id="problem" class="problem">
+        <h2>❌ '묻지마 이주'가 아닌, '실패 없는 정착'을 원하십니까?</h2>
+        <p style="text-align: center; font-size: 1.1rem; color: #5A6C7D; margin-bottom: 3rem;">새로운 지역으로의 이주를 꿈꾸지만, 현실적인 벽에 부딪혀 막막함을 느끼는 분들이 많습니다.<br>당신이 겪고 있는 가장 큰 어려움은 무엇입니까?</p>
+        
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">📚</div>
+                <h3>정보 과부하</h3>
+                <p>정부·지자체 사이트에서 쏟아지는 방대한 정보 속에서 <strong>'나에게 진짜 필요한 정보'</strong>를 찾기 위해 시간과 에너지를 낭비하고 있습니다.</p>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-icon">🏥</div>
+                <h3>생활 환경 불일치</h3>
+                <p>현지 교통, 의료, 교육, 육아, 문화 등 실생활 필수 정보가 부족하여, 막상 정착 후 예상치 못한 불편함과 괴리감을 겪습니다.</p>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-icon">👥</div>
+                <h3>지역 커뮤니티 부재</h3>
+                <p>이주 후 현지 주민들과의 소통, 커뮤니티 활동, 지역 문화 적응에 어려움을 겪으며 고립감을 느낍니다.</p>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-icon">💸</div>
+                <h3>비용과 리스크</h3>
+                <p>불확실한 정보 때문에 쓸데없는 비용을 지출하거나, 정착 실패라는 돌이킬 수 없는 리스크를 감수하고 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 솔루션 -->
+    <section id="solution" class="solution">
+        <h2>💡 복잡한 정착 과정을 하나의 '개인 맞춤형 내비게이션'으로</h2>
+        <p class="solution-intro">저희 도시 정주 라이프 플래너는 단순한 정보 전달자가 아닙니다. 당신의 상황과 요구사항을 면밀히 분석하여, 정착에 필요한 모든 요소를 통합한 <strong>'지역 정주 성공 매뉴얼'</strong>을 제공합니다.</p>
+        
+        <div class="value-grid">
+            <div class="value-card">
+                <h3>개인화된 정주 큐레이션</h3>
+                <p>단순히 도시를 추천하는 것이 아닌, 당신의 예산, 직업, 라이프스타일에 최적화된 동네, 주거, 인프라를 큐레이션합니다.</p>
+            </div>
+            
+            <div class="value-card">
+                <h3>지역 자원 연계 전문가</h3>
+                <p>지자체 지원 사업, 지역 커뮤니티, 지역 특화 전문가(부동산/법률) 등 비공식적 자원까지 연결하여 실질적인 정착을 돕습니다.</p>
+            </div>
+            
+            <div class="value-card">
+                <h3>정착 후 '관계망' 형성 지원</h3>
+                <p>단순 이주를 넘어 지역 주민과의 사회적 관계망을 형성할 수 있도록 돕는 프로그램을 설계하여 고립감을 해소하고 성공적인 지역민으로 안착시킵니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 혜택 -->
+    <section id="benefits" class="benefits">
+        <h2>✅ 도시 정주 라이프 플래너가 당신의 짐을 덜어주는 3가지 핵심 혜택</h2>
+        
+        <div class="benefit-list">
+            <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-content">
+                    <h3>정착 예산 및 비용 절감 컨설팅</h3>
+                    <p>이사·주거 비용뿐 아니라, 숨겨진 생활 비용, 세금, 지자체 보조금 등을 분석하여 초기 정착 비용을 최소화할 수 있는 전략을 제시합니다.</p>
+                </div>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">🗺️</div>
+                <div class="benefit-content">
+                    <h3>이주 전/후 3단계 맞춤형 로드맵 제공</h3>
+                    <ul class="benefit-steps">
+                        <li><strong>1단계 (탐색):</strong> 희망 지역 심층 분석 및 사전 답사 계획 설계</li>
+                        <li><strong>2단계 (실행):</strong> 주거 계약, 행정 처리, 자녀 전학 등 필수 정착 절차 가이드</li>
+                        <li><strong>3단계 (안착):</strong> 지역 커뮤니티 연결, 지역 문화 적응 지원 및 6개월 후 만족도 체크업</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">🤝</div>
+                <div class="benefit-content">
+                    <h3>검증된 지역 전문가 네트워크 활용</h3>
+                    <p>부동산, 법무사, 이사 서비스 등 정착에 필요한 모든 분야의 검증된 현지 파트너를 연결하여, 안전하고 투명한 계약 및 서비스 이용을 보장합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 신뢰 구축 -->
+    <section id="trust" class="trust">
+        <h2>🏆 지역 전문가들이 함께 만드는, 검증된 정착 솔루션</h2>
+        <p style="text-align: center; font-size: 1.1rem; margin-bottom: 3rem; opacity: 0.95;">저희 서비스는 단순한 '프리랜서 컨설팅'이 아닌, 지역 사회의 전문성과 공신력을 바탕으로 구축되었습니다.</p>
+        
+        <div class="trust-grid">
+            <div class="trust-card">
+                <h3>MVP 실행 계획</h3>
+                <p>초기 서비스는 'A광역시 OOO 지역'을 중심으로 파일럿 테스트를 진행하며, 선착순 10팀에게 집중적인 컨설팅을 제공하여 서비스의 완성도와 실제 고객 만족도를 검증합니다.</p>
+            </div>
+            
+            <div class="trust-card">
+                <h3>협력 기관</h3>
+                <p>A광역시 정주지원센터, OOO 지역 커뮤니티 협의회, 지역 자활 센터와의 공식 협력을 통해 지역 내의 실질적인 자원 및 정보에 접근합니다.</p>
+            </div>
+            
+            <div class="trust-card">
+                <h3>플래너 역량</h3>
+                <p>모든 라이프 플래너는 지역 정주 경험을 보유하고, 지역 자원 활용 및 커뮤니티 설계 교육을 이수한 전문 인력으로만 구성됩니다.</p>
+            </div>
+            
+            <div class="trust-card">
+                <h3>고객 만족 보증</h3>
+                <p>초기 컨설팅 후 30일 이내 서비스 불만족 시, 100% 환불 정책을 운영합니다. (베타 기간 한정)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 가격 -->
+    <section id="pricing" class="pricing">
+        <h2>🎁 성공적인 첫 출발을 위한 '베타 테스터 특별 혜택'</h2>
+        <p style="font-size: 1.1rem; color: #5A6C7D; margin-bottom: 3rem;">저희는 서비스의 완성도를 높이기 위해, 당신의 피드백을 절실히 필요로 합니다.</p>
+        
+        <div class="pricing-card">
+            <div class="pricing-badge">⭐ 베타 테스터 한정</div>
+            <h3>프리미엄 정주 컨설팅</h3>
+            
+            <ul class="pricing-features">
+                <li>1:1 맞춤형 지역 정주 로드맵</li>
+                <li>검증된 지역 전문가 네트워크 연계</li>
+                <li>6개월 안착 지원 프로그램</li>
+                <li>정착 예산 최적화 컨설팅</li>
+                <li>3단계 이주 가이드 (탐색-실행-안착)</li>
+                <li>30일 100% 환불 보증</li>
+            </ul>
+            
+            <div class="price-container">
+                <div class="original-price">정상가: 1,500,000원</div>
+                <div class="discount-price">990,000원</div>
+                <p style="color: #48A9A6; font-weight: 600; font-size: 1.1rem;">34% 할인 (510,000원 절약)</p>
+            </div>
+            
+            <a href="#apply" class="cta-primary">지금 베타 테스터 신청하기 →</a>
+        </div>
+    </section>
+
+    <!-- 최종 CTA -->
+    <section id="apply" class="final-cta">
+        <h2>당신의 성공적인 지역 정착, 지금 시작하세요</h2>
+        <p>더 이상 막연한 불안 속에서 시간을 낭비하지 마세요. 검증된 전문가와 함께 당신만의 정착 성공 스토리를 만들어가세요.</p>
+        
+        <div class="urgency">
+            <strong>⏰ 선착순 10팀 한정</strong><br>
+            베타 테스터로 참여하시면 정상가 대비 34% 할인된 가격으로 프리미엄 컨설팅을 받으실 수 있습니다.
+        </div>
+        
+        <a href="mailto:contact@settlement-planner.com?subject=베타 테스터 신청&body=이름:%0D%0A연락처:%0D%0A희망 정착 지역:%0D%0A문의사항:" class="cta-primary">베타 테스터 신청하기 →</a>
+        
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: #999;">
+            문의: contact@settlement-planner.com | 전화: 02-XXXX-XXXX
+        </p>
+    </section>
+</body>
+</html>
